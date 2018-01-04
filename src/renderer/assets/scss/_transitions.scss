@@ -1,0 +1,27 @@
+@mixin vue-transition($class, $to, $from) {
+	.#{$class}-enter-active,
+	.#{$class}-leave-active {
+		@each $prop, $val in $to {
+			#{$prop}: $val
+		}
+	}
+
+	.#{$class}-enter,
+	.#{$class}-leave-to {
+		@each $prop, $val in $from {
+			#{$prop}: $val
+		}
+	}
+}
+
+@include vue-transition(page, (
+	transition: opacity .2s
+), (
+	opacity: 0
+));
+
+@include vue-transition(fade, (
+	transition: opacity .15s
+), (
+	opacity: 0
+));
