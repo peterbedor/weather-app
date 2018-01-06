@@ -2,7 +2,7 @@
 	<ul class="list">
 		<location-item v-for="(location, i) in locations" :key="i" :location="location" v-if="i <= 4" />
 		<button class="button list-action" @click="$router.push({ name: 'add-location' })">
-			<icon type="add" size="medium" />
+			<icon type="add" size="small" />
 		</button>
 	</ul>
 </template>
@@ -32,7 +32,7 @@
 		display: flex;
 	}
 	.list-action {
-		@include circle(4rem);
+		@include circle(2.8rem);
 		padding: 0;
 		display: flex;
 		justify-content: center;

@@ -1,6 +1,6 @@
 <template>
 	<div id="app">
-		<transition name="fade">
+		<transition>
 			<router-view></router-view>
 		</transition>
 		<app-loader v-if="loading" />
@@ -168,7 +168,7 @@
 <style lang="scss">
 	@import "../renderer/assets/scss/_variables";
 
-	$baseFont: Roboto, Helvetica, Arial, sans-serif;
+	$baseFont: 'Open Sans', Helvetica, Arial, sans-serif;
 	$headingFont: $baseFont;
 
 	@import "../renderer/assets/scss/_mixins";
@@ -193,6 +193,13 @@
 	.content {
 		padding-left: 30px;
 		padding-right: 30px;
+	}
+	.content-split {
+		@extend .content;
+		@include row();
+	}
+	.content-split-section {
+		@include column(spaced, 1, 2);
 	}
 	body {
 		background-color: rgb(118, 169, 228);
@@ -222,5 +229,8 @@
 			background: #68CD86;
 			border-left-color: #42A85F;
 		}
+	}
+	.text-shadow {
+		text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.7);
 	}
 </style>

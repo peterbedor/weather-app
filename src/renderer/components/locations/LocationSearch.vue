@@ -2,7 +2,7 @@
 	<div>
 		<input
 			type="text"
-			class="input has-results"
+			:class="['input', { 'has-results': this.results.length }]"
 			:placeholder="placeholder"
 			@input="handleInput"
 			v-model="query"

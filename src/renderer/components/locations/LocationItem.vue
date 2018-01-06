@@ -28,9 +28,19 @@
 				setDefaultLocation: 'setDefaultLocation',
 			}),
 
+			/**
+			 * Handle click
+			 */
 			handleClick(location) {
 				if (!location.default) {
 					this.setDefaultLocation(location);
+
+					this.$notify({
+						group: 'feedback',
+						title: 'Success',
+						text: 'Default location set',
+						type: 'success',
+					});
 				}
 			},
 
@@ -67,12 +77,17 @@
 		border-top-left-radius: 10rem;
 		border-bottom-left-radius: 10rem;
 		background-color: $white;
-		padding: .5rem 1.5rem;
-		font-size: 1.3rem;
+		padding: .5rem 1.3rem;
+		font-size: 1.2rem;
 		cursor: pointer;
+		line-height: 1;
+		display: flex;
+		justify-content: center;
+		align-items: center;
 		opacity: .5;
 		opacity: .5;
 		transition: opacity .2s ease-in-out;
+		text-transform: uppercase;
 		&:hover {
 			opacity: 1;
 			.action {

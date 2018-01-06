@@ -1,3 +1,4 @@
+import isEmpty from 'lodash/isEmpty';
 import { fetchLocationByLatLng } from '../../../services/locations';
 import {
 	ADD_DEFAULT_LOCATION,
@@ -42,7 +43,14 @@ export default {
 	 * @param {Number} location - The location to be removed
 	 */
 	removeLocation({ commit }, location) {
-		commit(REMOVE_LOCATION, location);
+		return new Promise((resolve, error) => {
+			if (!isEmpty(location)) {
+				commit(REMOVE_LOCATION, location);
+				resolve();
+			}
+
+			error();
+		});
 	},
 
 	setDefaultLocation({ commit }, location) {
