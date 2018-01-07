@@ -190,4 +190,7 @@
 	body {
 		background-color: $white;
 	}
+	.full {
+		height: 100%;
+	}
 </style>

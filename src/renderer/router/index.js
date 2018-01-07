@@ -11,6 +11,11 @@ export default new Router({
 			component: require('@/pages/Index').default,
 		},
 		{
+			path: '/settings',
+			name: 'settings',
+			component: require('@/pages/Settings').default,
+		},
+		{
 			path: '/locations/add',
 			name: 'add-location',
 			component: require('@/pages/locations/AddLocation').default,

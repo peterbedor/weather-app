@@ -6,6 +6,7 @@ import weatherAlerts from './weather-alerts';
 import hourlyWeather from './hourly-weather';
 import dailyWeather from './daily-weather';
 import minutelyWeather from './minutely-weather';
+import weatherMap from './weather-map';
 
 export {
 	app,
@@ -16,4 +17,5 @@ export {
 	hourlyWeather,
 	dailyWeather,
 	minutelyWeather,
+	weatherMap,
 };

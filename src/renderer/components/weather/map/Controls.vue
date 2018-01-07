@@ -2,8 +2,8 @@
 	<perfect-scroll class="controls-wrap">
 		<ul class="controls">
 			<li
-				v-for="(layer, i) in layers"
-				:key="i"
+				v-for="(layer, key) in layers"
+				:key="key"
 				:class="['control', { inactive: !layer.active }]"
 			>
 				<div class="control-name" @click="$emit('layerToggled', layer)">
@@ -12,12 +12,11 @@
 				<div class="control-opacity" v-if="layer.active">
 					<vue-slider
 						:value="layer.opacity"
-						v-model="layer.opacity"
 						:min="0"
 						:max="1"
 						:interval=".1"
 						tooltip="hover"
-						@input="$emit('layerOpacityChange', layer)"
+						@input="$emit('layerOpacityChange', layer, $event)"
 					/>
 				</div>
 			</li>

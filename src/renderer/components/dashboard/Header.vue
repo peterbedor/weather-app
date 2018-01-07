@@ -1,7 +1,7 @@
 <template>
 	<header class="header">
-		<button class="button icon-wrap" @click="toggleSidebar">
-			<icon type="location_on" size="large" />
+		<button class="button icon-wrap" @click="handleClick">
+			<icon :type="page ? 'keyboard_arrow_left' : 'location_on'" size="large" />
 		</button>
 		<div class="header-content">
 			<div class="current-location">
@@ -11,9 +11,9 @@
 				<div class="current-time">
 					<current-date format="HH:mm:ss" />
 				</div>
-				<button class="button icon-wrap">
+				<router-link tag="button" :to="{ name: 'settings' }" class="button icon-wrap">
 					<icon type="settings" size="large" />
-				</button>
+				</router-link>
 			</div>
 		</div>
 	</header>
@@ -21,12 +21,16 @@
 
 <script>
 	import { mapGetters, mapActions } from 'vuex';
+	import { bool } from '../../utilities/prop-types';
 	import Icon from '../utilities/Icon';
 	import CurrentDate from '../utilities/CurrentDate';
 
 	export default {
 		name: 'dashboard-header',
 		components: { Icon, CurrentDate },
+		props: {
+			page: bool(false),
+		},
 
 		methods: {
 			...mapActions('app', {
@@ -39,6 +43,14 @@
 					this.closeSidebar();
 				} else {
 					this.openSidebar();
+				}
+			},
+
+			handleClick() {
+				if (!this.page) {
+					this.toggleSidebar();
+				} else {
+					this.$router.push({ name: 'index' });
 				}
 			},
 		},

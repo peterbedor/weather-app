@@ -1,6 +1,8 @@
 import DarkSky from 'dark-sky';
 import axios from 'axios';
+import L from 'mapbox.js';
 
+const owmAppId = process.env.OWM_API_KEY;
 const darksky = new DarkSky(process.env.DARK_SKY_API_KEY);
 
 /**
@@ -73,6 +75,12 @@ const fetchCityData = async (minLat, minLng, maxLat, maxLng) => {
 	});
 };
 
+const fetchMapLayerData = (type) => {
+	const url = `http://tile.openweathermap.org/map/${type}/{z}/{x}/{y}.png?appid=${owmAppId}`;
+
+	return L.tileLayer(url, { opacity: 0.5 });
+};
+
 export {
 	fetchCurrentWeather,
 	fetchWeatherAlerts,
@@ -80,4 +88,5 @@ export {
 	fetchDailyWeather,
 	fetchMinutelyWeather,
 	fetchCityData,
+	fetchMapLayerData,
 };
