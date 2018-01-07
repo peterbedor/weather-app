@@ -9,7 +9,7 @@ const locationRequest = axios.create({
 // Intercept locationRequest requests and append the
 // required Google API key parameter to each request config
 locationRequest.interceptors.request.use((config) => {
-	config.params.api_key = '138da53884d354ad3848ed5888edad8deae7337';
+	config.params.api_key = process.env.GEOCODIO_API_KEY;
 
 	return config;
 });

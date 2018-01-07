@@ -1,6 +1,6 @@
 import each from 'lodash/each';
-import orderBy from 'lodash/orderBy';
 import lockr from 'lockr';
+import Vue from 'vue';
 import {
 	ADD_DEFAULT_LOCATION,
 	SET_LOCATIONS_LOADED,
@@ -17,8 +17,6 @@ export default {
 
 		state.data.push({ ...payload, default: true });
 
-		state.data = orderBy(state.data, ['default', 'city'], ['desc', 'asc']);
-
 		lockr.set('locations', state);
 	},
 
@@ -31,8 +29,6 @@ export default {
 	[ADD_LOCATION](state, payload) {
 		state.data.push({ ...payload, default: false });
 
-		state.data = orderBy(state.data, ['default', 'city'], ['desc', 'asc']);
-
 		lockr.set('locations', state);
 	},
 
@@ -40,8 +36,6 @@ export default {
 		const index = state.data.indexOf(payload);
 
 		state.data.splice(index, 1);
-
-		state.data = orderBy(state.data, ['default', 'city'], ['desc', 'asc']);
 
 		lockr.set('locations', state);
 	},
@@ -53,11 +47,7 @@ export default {
 
 		const index = state.data.indexOf(payload);
 
-		state.data.splice(index, 1);
-
-		state.data.unshift({ ...payload, default: true });
-
-		state.data = orderBy(state.data, ['default', 'city'], ['desc', 'asc']);
+		Vue.set(state.data, index, { ...payload, default: true });
 
 		lockr.set('locations', state);
 	},

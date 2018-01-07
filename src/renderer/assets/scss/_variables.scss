@@ -20,19 +20,22 @@ $blockMarginBottom: 4rem; // default spacing for lists, form elements, and other
 //  # Colors
 //------------------------------------*/
 
-$primary: #5789ff;
+$primary: #3498db;
 $secondary: #121212;
 $tertiary: #ff9b57;
 $info: #1a28ff;
 $success: #2ed183;
 $warning: #ff4121;
-
+$green: #16a085;
+$orange: #e67e22;
+$red: #c0392b;
+$purple: #8e44ad;
 
 //------------------------------------*\
 //  # Grayscale
 //------------------------------------*/
 
-$white: #fff;
+$white: #f1f3f4;
 $lightestGray: darken(#fff, 4%);
 $lighterGray: darken(#fff, 10%);
 $lightGray: darken(#fff, 25%);
@@ -41,6 +44,8 @@ $darkGray: darken(#fff, 55%);
 $darkerGray: darken(#fff, 65%);
 $darkestGray: darken(#fff, 75%);
 $black: #000;
+
+$trueWhite: #fff;
 
 
 //------------------------------------*\

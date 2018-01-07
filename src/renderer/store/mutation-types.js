@@ -1,6 +1,7 @@
 // app
 export const SET_LOADING = 'SET_LOADING';
 export const SET_LOADING_MESSAGE = 'SET_LOADING_MESSAGE';
+export const SET_SIDEBAR_OPEN = 'SET_SIDEBAR_OPEN';
 
 // sun-position
 export const SET_SUN_POSITION = 'SET_SUN_POSITION';

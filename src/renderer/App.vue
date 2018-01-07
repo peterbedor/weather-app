@@ -179,58 +179,15 @@
 	@import "../renderer/assets/scss/_transitions";
 
 	html,
-	body,
-	#app,
-	.page {
+	body {
 		width: 100vw;
 		height: 100vh;
 	}
+	#app,
 	.page {
-		&.white {
-			background-color: #fff;
-		}
-	}
-	.content {
-		padding-left: 30px;
-		padding-right: 30px;
-	}
-	.content-split {
-		@extend .content;
-		@include row();
-	}
-	.content-split-section {
-		@include column(spaced, 1, 2);
+		height: calc(100vh - 6rem);
 	}
 	body {
-		background-color: rgb(118, 169, 228);
-	}
-	.vue-notification {
-		padding: 1rem;
-		margin-right: 2.5rem;
-		margin-top: 2.5rem;
-
-		font-size: 12px;
-
-		color: #ffffff;
-		background: #44A4FC;
-		border-left: 5px solid #187FE7;
-
-		&.warn {
-			background: #ffb648;
-			border-left-color: #f48a06;
-		}
-
-		&.error {
-			background: #E54D42;
-			border-left-color: #B82E24;
-		}
-
-		&.success {
-			background: #68CD86;
-			border-left-color: #42A85F;
-		}
-	}
-	.text-shadow {
-		text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.7);
+		background-color: $white;
 	}
 </style>

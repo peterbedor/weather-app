@@ -25,3 +25,13 @@
 ), (
 	opacity: 0
 ));
+
+@include vue-transition(fade-delay, (
+	transition: opacity .15s,
+	visibility: visible,
+	transition-delay: .1s
+), (
+	opacity: 0,
+	transition-delay: 0s,
+	visibility: hidden,
+));

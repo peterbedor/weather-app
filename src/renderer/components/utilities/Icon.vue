@@ -30,14 +30,17 @@
 </script>
 
 <style lang="scss" scoped>
-	.medium {
-		font-size: 24px;
-	}
 	.small {
-		font-size: 18px;
+		font-size: 1.8rem;
+	}
+	.medium {
+		font-size: 2.4rem;
 	}
 	.large {
-		font-size: 48px;
+		font-size: 3.2rem;
+	}
+	.xlarge {
+		font-size: 4.8rem;
 	}
 	.clickable {
 		cursor: pointer;
