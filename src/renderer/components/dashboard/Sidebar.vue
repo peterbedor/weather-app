@@ -74,6 +74,8 @@
 		padding-top: 1.4rem;
 		will-change: width;
 		transition: all .2s ease-in-out;
+		position: relative;
+		z-index: 110;
 		&.active {
 			width: 20rem;
 		}

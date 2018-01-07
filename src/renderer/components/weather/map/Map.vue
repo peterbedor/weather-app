@@ -1,56 +1,36 @@
 <template>
 	<card class="map-card">
-		<div :class="['map-container', { fullscreen, sidebarOpen }]">
+		<div :class="['map-container', { fullscreen, sidebar: fullscreen && sidebarOpen }]">
 			<div id="map" ref="map" class="map"></div>
 			<div class="map-fullscreen">
-				<icon type="fullscreen" size="large" @click="toggleFullscreen" />
+				<icon :type="fullscreen ? 'fullscreen_exit' : 'fullscreen'" size="large" @click="toggleFullscreen" />
 			</div>
 		</div>
-		<perfect-scroll class="map-controls">
-			<ul class="control-list">
-				<li
-					v-for="(layer, i) in layers"
-					:key="i"
-					:class="['control-list-item', { inactive: !layer.active }]"
-				>
-					<div class="control-list-name" @click="toggleLayer(layer)">
-						{{ layer.display }}
-					</div>
-					<div class="control-list-opacity" v-if="layer.active">
-						<vue-slider
-							:value="layer.opacity"
-							v-model="layer.opacity"
-							:min="0"
-							:max="1"
-							:interval=".1"
-							tooltip="hover"
-							@input="changeOpacity(layer)"
-						/>
-					</div>
-				</li>
-			</ul>
-		</perfect-scroll>
+		<map-controls
+			:layers="layers"
+			@layerToggled="toggleLayer"
+			@layerOpacityChange="changeOpacity"
+		/>
 	</card>
 </template>
 
 <script>
 	import { mapGetters } from 'vuex';
 	import L from 'mapbox.js';
-	import VueSlider from 'vue-slider-component';
-	import PerfectScroll from 'vue-perfect-scrollbar';
-	import Icon from '../utilities/Icon';
-	import '../../plugins/leaflet-owm';
-	import Card from '../utilities/Card';
+	import { fetchCityData } from '../../../services/weather';
+	import Icon from '../../utilities/Icon';
+	import Card from '../../utilities/Card';
+	import MapControls from './Controls';
 
 	export default {
 		name: 'weather-map',
-		components: { Card, VueSlider, PerfectScroll, Icon },
+		components: { Card, Icon, MapControls },
 
 		mounted() {
 			const { latitude, longitude } = this.defaultLocation.coordinates;
 
 			L.mapbox.accessToken = process.env.MAPBOX_API_KEY;
-			this.mapObject = L.mapbox.map(this.$refs.map, 'mapbox.outdoors', { attributionControl: false })
+			this.mapObject = L.mapbox.map(this.$refs.map, 'mapbox.light', { attributionControl: false })
 				.setView([latitude, longitude], 13);
 
 			this.owmAppId = process.env.OWM_API_KEY;
@@ -65,6 +45,15 @@
 		},
 
 		methods: {
+			getcity() {
+				const bb = this.mapObject.getBounds();
+
+				fetchCityData(bb.getWest(), bb.getSouth(), bb.getEast(), bb.getNorth())
+					.then(({ data }) => {
+						console.log(data);
+					});
+			},
+
 			toggleFullscreen() {
 				this.fullscreen = !this.fullscreen;
 
@@ -168,6 +157,13 @@
 					active: false,
 					opacity: 0,
 				},
+				windClassic: {
+					display: 'wind speed (classic)',
+					name: 'wind',
+					data: null,
+					active: false,
+					opacity: 0,
+				},
 				rain: {
 					display: 'rain',
 					name: 'rain',
@@ -189,13 +185,20 @@
 					active: false,
 					opacity: 0,
 				},
+				temperatureClassic: {
+					display: 'temperature (classic)',
+					name: 'temp',
+					data: null,
+					active: false,
+					opacity: 0,
+				},
 			},
 		}),
 	};
 </script>
 
 <style lang="scss" scoped>
-	@import "../../assets/scss/_variables";
+	@import "../../../assets/scss/_variables";
 
 	.map-card {
 		width: 100%;
@@ -218,8 +221,11 @@
 			bottom: 0;
 			z-index: 9999;
 			transition: left .2s ease-in-out;
+			.map-fullscreen {
+				right: 7rem;
+			}
 		}
-		&.sidebarOpen {
+		&.sidebar {
 			left: 20rem;
 		}
 	}
@@ -227,28 +233,9 @@
 		height: 100%;
 		width: 100%;
 	}
-	.map-controls {
-		background-color: $lightestGray;
-		width: 20%;
-		margin-left: 2rem;
-		min-width: 20.8rem;
-		overflow: scroll;
-	}
-	.control-list {
-		list-style-type: none;
-		margin: 0;
-		padding: 2rem;
-	}
-	.control-list-item {
-		font-size: 1.4rem;
-		font-weight: 600;
-		cursor: pointer;
-		&.inactive {
-			opacity: 0.5;
-		}
-	}
+
 	.map-fullscreen {
-		z-index: 1000;
+		z-index: 100;
 		position: absolute;
 		top: 1rem;
 		right: 1rem;

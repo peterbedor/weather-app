@@ -13,7 +13,7 @@
 
 <script>
 	import Card from '../components/utilities/Card';
-	import WeatherMap from '../components/weather/Map';
+	import WeatherMap from '../components/weather/map/Map';
 	import DashboardHeader from '../components/dashboard/Header';
 	import DashboardSidebar from '../components/dashboard/Sidebar';
 	import DashboardLayout from '../components/dashboard/Layout';

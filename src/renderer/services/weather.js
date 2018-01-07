@@ -1,4 +1,5 @@
 import DarkSky from 'dark-sky';
+import axios from 'axios';
 
 const darksky = new DarkSky(process.env.DARK_SKY_API_KEY);
 
@@ -51,10 +52,32 @@ const fetchDailyWeather = async (latitude, longitude) => fetchWeather(latitude, 
  */
 const fetchMinutelyWeather = async (latitude, longitude) => fetchWeather(latitude, longitude, 'currently,daily,alerts,hourly,flags');
 
+/**
+ * Fetch city weather data based on a bounding box
+ * of latitudes and longitudes
+ * @param {(String|Float)} minLat
+ * @param {(String|Float)} minLng
+ * @param {(String|Float)} maxLat
+ * @param {(String|Float)} maxLng
+ */
+const fetchCityData = async (minLat, minLng, maxLat, maxLng) => {
+	const apiKey = process.env.OWM_API_KEY;
+
+	return axios.get('http://api.openweathermap.org/data/2.5/box/city', {
+		params: {
+			cnt: 300,
+			appId: apiKey,
+			format: 'json',
+			bbox: `${minLat},${minLng},${maxLat},${maxLng},10`,
+		},
+	});
+};
+
 export {
 	fetchCurrentWeather,
 	fetchWeatherAlerts,
 	fetchHourlyWeather,
 	fetchDailyWeather,
 	fetchMinutelyWeather,
+	fetchCityData,
 };

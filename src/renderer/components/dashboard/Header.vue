@@ -7,8 +7,13 @@
 			<div class="current-location">
 				{{ defaultLocation.city }}, {{ defaultLocation.state }}
 			</div>
-			<div class="current-time">
-				<current-date format="HH:mm:ss" />
+			<div class="header-content-right">
+				<div class="current-time">
+					<current-date format="HH:mm:ss" />
+				</div>
+				<button class="button icon-wrap">
+					<icon type="settings" size="large" />
+				</button>
 			</div>
 		</div>
 	</header>
@@ -60,7 +65,6 @@
 		width: 100%;
 		&-content {
 			padding-left: 2rem;
-			padding-right: 2rem;
 			display: flex;
 			align-items: center;
 			div {
@@ -77,7 +81,7 @@
 	}
 	.icon-wrap {
 		width: 6rem;
-		height:6rem;
+		height: 6rem;
 		color: $trueWhite;
 		display: flex;
 		justify-content: center;
@@ -92,9 +96,15 @@
 			background-color: lighten($primary, 5%);
 		}
 	}
+	.header-content-right {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
 	.current-time {
 		color: $trueWhite;
 		font-size: 1.8rem;
 		font-weight: 600;
+		margin-right: 2rem;
 	}
 </style>
