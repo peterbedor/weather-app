@@ -10,6 +10,9 @@ if (process.env.NODE_ENV !== 'development') {
 	global.__static = require('path').join(__dirname, '/static').replace(/\\/g, '\\\\') // eslint-disable-line
 }
 
+// Enable for production debugging
+// require('electron-debug')({ enabled: true, showDevTools: 'right' }); // eslint-disable-line
+
 let mainWindow;
 const winURL = process.env.NODE_ENV === 'development'
 	? 'http://localhost:9080'

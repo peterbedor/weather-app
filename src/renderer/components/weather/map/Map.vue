@@ -15,7 +15,11 @@
 </template>
 
 <script>
+	/* eslint-disable */
 	import { mapGetters, mapActions } from 'vuex';
+	import fs from 'fs';
+	import unzip from 'unzip2';
+	import parser from 'xml2js';
 	import L from 'mapbox.js';
 	import { fetchCityData, fetchMapLayerData } from '../../../services/weather'; // eslint-disable-line
 	import Icon from '../../utilities/Icon';
@@ -36,6 +40,36 @@
 				this.selectedMapStyle,
 				{ attributionControl: false },
 			).setView([latitude, longitude], 13);
+
+			fs.createReadStream(`${__static}/test.kmz`)
+				.pipe(unzip.Parse())
+				.on('entry', (entry) => {
+					let data = '';
+
+					entry.on('data', (chunk) => {
+						data += chunk;
+					});
+
+					entry.on('end', () => {
+						console.log(data);
+						parser.parseString(data, (err, result) => {
+							const overlay = result.kml.Document[0].Folder[1].Folder[0].GroundOverlay[0];
+							const url = overlay.Icon[0].href[0];
+							const latLng = [
+								overlay.LatLonBox[0].north[0],
+								overlay.LatLonBox[0].east[0],
+								overlay.LatLonBox[0].south[0],
+								overlay.LatLonBox[0].west[0],
+							];
+
+							console.log(url, latLng);
+							L.imageOverlay(url, [[latLng[0], latLng[1]], [latLng[2], latLng[3]]])
+								.addTo(this.mapObject);
+						});
+					});
+				});
+
+			// omnivore.kml('static/test.kml').addTo(this.mapObject);
 		},
 
 		watch: {

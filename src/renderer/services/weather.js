@@ -23,6 +23,7 @@ const fetchWeather = (latitude, longitude, exclude = '') =>
  * Fetch the current weather
  * @param {(string|float)} latitude
  * @param {(string|float)} longitude
+ * @returns {Promise}
  */
 const fetchCurrentWeather = async (latitude, longitude) => fetchWeather(latitude, longitude, 'minutely,daily,alerts,hourly,flags');
 
@@ -30,6 +31,7 @@ const fetchCurrentWeather = async (latitude, longitude) => fetchWeather(latitude
  * Fetch weather alerts
  * @param {(string|float)} latitude
  * @param {(string|float)} longitude
+ * @returns {Promise}
  */
 const fetchWeatherAlerts = async (latitude, longitude) => fetchWeather(latitude, longitude, 'currently,minutely,daily,hourly,flags');
 
@@ -37,6 +39,7 @@ const fetchWeatherAlerts = async (latitude, longitude) => fetchWeather(latitude,
  * Fetch hourly weather
  * @param {(string|float)} latitude
  * @param {(string|float)} longitude
+ * @returns {Promise}
  */
 const fetchHourlyWeather = async (latitude, longitude) => fetchWeather(latitude, longitude, 'currently,minutely,alerts,daily,flags');
 
@@ -44,6 +47,7 @@ const fetchHourlyWeather = async (latitude, longitude) => fetchWeather(latitude,
  * Fetch daily weather
  * @param {(string|float)} latitude
  * @param {(string|float)} longitude
+ * @returns {Promise}
  */
 const fetchDailyWeather = async (latitude, longitude) => fetchWeather(latitude, longitude, 'currently,minutely,alerts,hourly,flags');
 
@@ -51,6 +55,7 @@ const fetchDailyWeather = async (latitude, longitude) => fetchWeather(latitude, 
  * Fetch minutely weather
  * @param {(string|float)} latitude
  * @param {(string|float)} longitude
+ * @returns {Promise}
  */
 const fetchMinutelyWeather = async (latitude, longitude) => fetchWeather(latitude, longitude, 'currently,daily,alerts,hourly,flags');
 
@@ -61,6 +66,7 @@ const fetchMinutelyWeather = async (latitude, longitude) => fetchWeather(latitud
  * @param {(String|Float)} minLng
  * @param {(String|Float)} maxLat
  * @param {(String|Float)} maxLng
+ * @returns {Promise}
  */
 const fetchCityData = async (minLat, minLng, maxLat, maxLng) => {
 	const apiKey = process.env.OWM_API_KEY;
@@ -75,6 +81,11 @@ const fetchCityData = async (minLat, minLng, maxLat, maxLng) => {
 	});
 };
 
+/**
+ * Get tile layer data
+ * @param {String} type - the type of layer
+ * @returns {TileLayer}
+ */
 const fetchMapLayerData = (type) => {
 	const url = `http://tile.openweathermap.org/map/${type}/{z}/{x}/{y}.png?appid=${owmAppId}`;
 
